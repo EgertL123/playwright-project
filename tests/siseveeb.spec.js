@@ -33,3 +33,12 @@ test("Tunniplaani performance test", async ({ page }) => {
     console.log(`Page load time: ${loadTime} ms`);
     expect(loadTime).toBeLessThan(3000);
 });
+
+test("Wrong account test", async ({ page }) => {
+    await page.goto('https://siseveeb.voco.ee/');
+    await page.getByRole('textbox', { name: 'Kasutajatunnus' }).fill("test123");
+    await page.getByRole('textbox', { name: 'Parool' }).fill("qwerty");
+    await page.getByRole('button', { name: 'Sisene' }).click();
+    await page.waitForTimeout(1000);
+    await page.screenshot({ path: "wrong_account.png", fullPage: true });
+});
